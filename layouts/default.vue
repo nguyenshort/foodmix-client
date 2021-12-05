@@ -10,7 +10,7 @@
 
     <head-view />
 
-    <div class='text-gray-600 min-h-screen w-full'>
+    <div class='text-gray-600 min-h-screen w-full overflow-hidden'>
       <transition key="transition-layout" name="page" mode="out-in">
         <nuxt />
       </transition>
@@ -269,5 +269,12 @@ html {
   position: absolute;
   left: calc(-1.25rem / 2);
   transform: translateX(-50%);
+}
+
+.switcher-enter-active, .switcher-leave-active {
+  transition: opacity .3s;
+}
+.switcher-enter, .switcher-leave-to, .switcher-leave-active  {
+  opacity: 0;
 }
 </style>

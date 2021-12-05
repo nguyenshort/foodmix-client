@@ -16,33 +16,27 @@
     ]'
     @ready='isReadyHandle(true)'
   >
-    <div
-      class='flex flex-wrap items-center text-sm transition duration-300 ease-in-out transform delay-500'
-      :class='{
-                "translate-y-0 opacity-100": isReady,
-                "-translate-y-6 opacity-0": !isReady
-              }'
-    >
-      <div class='mr-12'>
+    <div class='flex xl:flex-nowrap flex-wrap items-center text-sm lg:ml-5'>
+      <div class='xl:mr-12 w-1/2 sm:w-1/4 mb-4 lg:w-1/2 lg:text-center xl:text-left xl:w-auto'>
         <div>Phân Loại</div>
         <nuxt-link :to='{ name: "category", params: { slug: recipe.category.slug } }' class='font-semibold mt-1 block'>
           {{ recipe.category.name }}
         </nuxt-link>
       </div>
-      <div class='mr-12'>
+      <div class='xl:mr-12 w-1/2 sm:w-1/4 mb-4 lg:w-1/2 lg:text-center xl:text-left xl:w-auto'>
         <div>Thời Gian Chuẩn Bị</div>
         <div class='font-semibold mt-1'>
           {{ $nuxt.$moment(recipe.preparation).format("mm") }} Phút
         </div>
       </div>
-      <div class='mr-12'>
+      <div class='xl:mr-12 w-1/2 sm:w-1/4 mb-4 lg:w-1/2 lg:text-center xl:text-left xl:w-auto'>
         <div>Thời Gian Nấu</div>
         <div class='font-semibold mt-1'>
           {{ $nuxt.$moment(recipe.time).format("mm") }} Phút
         </div>
       </div>
 
-      <div class='ml-auto cursor-pointer' @click='$nuxt.$emit("reviewModal")'>
+      <div class='xl:ml-auto w-1/2 sm:w-1/4 lg:w-1/2 lg:text-center cursor-pointer mb-4 xl:text-left xl:w-auto' @click='$nuxt.$emit("reviewModal")'>
         <div>{{ recipe.countRating }} Đánh Giá</div>
         <div class='mt-1'>
           <fa
@@ -60,7 +54,7 @@
 
       <!-- Share Button -->
 
-      <div class='ml-20 mr-10'>
+      <div class='hidden xl:block xl:ml-16'>
         <button class='food-trans-btn h-9 inline-flex items-center justify-center rounded-full w-9 ' @click='printWindow()'><fa icon="print" /></button>
         <button
           class='food-trans-btn h-9 inline-flex items-center justify-center rounded-full w-9 ml-3'
@@ -69,8 +63,8 @@
           <fa icon="mobile-alt" />
         </button>
       </div>
-
     </div>
+
   </lazy-post-overlay>
 </template>
 

@@ -1,12 +1,5 @@
 <template>
-  <div
-    class='bookmark-page'
-    :class='{
-      isDeleting,
-      isLoading,
-      deleteEnable
-    }'
-  >
+  <div class='bookmark-pag'>
 
     <lazy-post-head>
       <template #head>
@@ -26,29 +19,71 @@
       </template>
     </lazy-post-head>
 
-    <div class='mx-auto max-w-6xl relative z-10'>
-      <div class='flex flex-wrap mt-4'>
-        <div v-for='(bookmark, index) in bookmarks' :key='index' class='w-1/4 p-3'>
-          <div
-            class='relative'
-            :class='{
+    <div class='mx-auto max-w-6xl relative z-10 px-3 xl:px-0'>
+
+      <template v-if='count > 0'>
+
+        <div class='flex items-center mt-3 xl:hidden'>
+          <h3 class='font-semibold text-md mr-auto'>Tổng số: {{ count }}</h3>
+
+          <lazy-animate-switcher>
+            <button
+              v-if='!deleteEnable'
+              class='bg-indigo-500 bt focus:outline-none p-2 px-3 rounded-full shadow-lg text-white text-xs'
+              @click='deleteEnable = true'
+            >
+              <fa icon='pen' class='mr-1'></fa>
+              Sửa
+            </button>
+            <div v-else>
+              <button
+                class='bg-red-500 bt focus:outline-none mr-2 p-2 px-3 rounded-full shadow-lg text-white text-xs bt'
+                :class='{
+                  _loading: isDeletingAll
+                }'
+                @click='$nuxt.$emit("deleteAllLib")'
+              >
+                <fa icon='trash-alt' class='mr-1'></fa>
+                Xoá Tất Cả
+              </button>
+              <button
+                class='bg-indigo-500 bt focus:outline-none p-2 px-3 rounded-full shadow-lg text-white text-xs'
+                @click='deleteEnable = false'
+              >
+                Xong
+              </button>
+            </div>
+          </lazy-animate-switcher>
+        </div>
+
+
+
+        <div class='flex flex-wrap mt-4'>
+          <div v-for='(bookmark, index) in bookmarks' :key='index' class='w-full xl:w-1/4 sm:w-1/2 md:w-1/3 px-0 sm:px-3 mb-5'>
+            <div
+              class='relative'
+              :class='{
               _share: deleteEnable
             }'
-          >
-            <lazy-food-item class='relative' :recipe='bookmark.recipe' />
-            <button
-              class='-translate-x-4 absolute bg-red-500 duration-300 h-8 right-0 rounded-full shadow text-white text-xs top-0 transform transition translate-y-4 w-8'
-              :class='{
+            >
+              <lazy-food-item class='relative' :recipe='bookmark.recipe' />
+              <button
+                class='-translate-x-4 absolute bg-red-500 duration-300 h-8 right-0 rounded-full shadow text-white text-xs top-0 transform transition translate-y-4 w-8'
+                :class='{
                 "opacity-0 scale-0": !deleteEnable
               }'
-              @click='deleteHandle(bookmark, index)'
-            >
-              <fa icon='trash-alt' />
-            </button>
+                @click='deleteHandle(bookmark, index)'
+              >
+                <fa icon='trash-alt' />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <lazy-empty-content v-if='!count' />
+        <lazy-show-more-button v-if='bookmarks.length' ref='showMore' :callback='getBookmarks' />
+      </template>
+
+      <lazy-empty-content v-else />
+
     </div>
 
     <lazy-base-modal ref='deleteModel' event='deleteAllLib' :max-width='400' title='Cảnh Báo Xoá'>
@@ -75,6 +110,12 @@
         </div>
       </div>
     </lazy-base-modal>
+
+    <portal to="title">
+      Thư Viện
+    </portal>
+
+
   </div>
 </template>
 
@@ -93,27 +134,38 @@ export default {
   },
   data() {
     return {
-      isLoading: false,
       bookmarks: [],
       deleteEnable: false,
       isDeleting: false,
       isDeletingAll: false
     }
   },
-  created() {
-    this.getBookmarks()
+  mounted() {
+    this.configView()
   },
   methods: {
-    async getBookmarks() {
-      if(this.isLoading || !this.count) {
-        return
+    configView() {
+      if(this.count > 0) {
+        this.getBookmarks()
       }
-      this.isLoading = true
+    },
+
+    async getBookmarks() {
       try {
-        const { data } = await this.$axios.$get('/bookmark', { params: { limit: 12, skip: this.bookmarks.length } })
+        const { data } = await this.$axios.$get(
+          '/bookmark',
+          {
+            params: {
+              limit: 12 - this.bookmarks.length % 12,
+              skip: this.bookmarks.length
+            }
+          }
+        )
         this.bookmarks.push(...data)
+        if(!data.length) {
+          this.$refs.showMore?.setActive(false)
+        }
       } catch (e) {}
-      this.isLoading = false
     },
 
     async deleteHandle(bookmark, index) {
@@ -127,6 +179,7 @@ export default {
         await this.$axios.$delete(`/bookmark/${bookmark._id}`)
         this.$delete(this.bookmarks, index)
         this.count--
+        await this.$refs.showMore.getMore()
 
       } catch (e) {}
       this.isDeleting = false

@@ -1,6 +1,7 @@
 <template>
   <div
-    class='fixed flex h-0 h-full items-center justify-center top-0 w-full z-50 transition duration-500 ease-in-out left-0'
+    :id='event'
+    class='fixed flex h-full items-center justify-center top-0 w-full z-50 transition duration-500 ease-in-out left-0'
     :class='{
       "invisible opacity-0": !showModal,
       "visible opacity-100": showModal
@@ -8,7 +9,8 @@
   >
     <a class='absolute top-0 left-0 w-full h-full close-overlay cursor-pointer' title='Close' @click='dispose()'></a>
     <div
-      class='border-indigo-600 border-t-4 modal-content relative py-7 transition duration-500 ease-in-out transform w-full bg-white'
+      :id='`${event}-body`'
+      class='border-indigo-600 border-t-4 modal-content relative py-7 transition duration-500 ease-in-out transform w-full bg-white mx-3 sm:mx-0'
       :style='
         {
           maxWidth: maxWidth + "px"

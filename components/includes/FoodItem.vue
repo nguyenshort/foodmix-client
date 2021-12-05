@@ -8,7 +8,12 @@
     }'
     class='overflow-hidden rounded-lg cursor-pointer food-item block'
   >
-    <img class='rounded-lg' :src='recipe.avatar' alt='' />
+    <img
+      src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
+      class='rounded-lg lazyload w-full h-full'
+      :data-src='recipe.avatar'
+      alt=''
+    />
     <slot></slot>
     <div v-if='!$scopedSlots["default"]' class='mt-2'>
       <p class='text-sm'>{{ recipe.name }}</p>

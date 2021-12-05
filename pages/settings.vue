@@ -1,9 +1,9 @@
 <template>
   <div>
     <lazy-post-head title='Cài Đặt'></lazy-post-head>
-    <div class='mx-auto max-w-6xl relative z-10'>
+    <div class='mx-auto max-w-6xl relative z-10 px-3 xl:px-0'>
       <div class='flex flex-wrap mt-7'>
-        <div class='w-1/4 border-r'>
+        <div class='lg:w-1/4 w-full lg:border-r'>
           <ul>
             <li>
               <nuxt-link
@@ -47,11 +47,15 @@
             </li>
           </ul>
         </div>
-        <div class='w-3/4'>
+        <div class='lg:w-3/4 w-full mt-7 lg:mt-0'>
           <nuxt-child />
         </div>
       </div>
     </div>
+
+    <portal to="title">
+      Cài Đặt Tài Khoản
+    </portal>
   </div>
 </template>
 
@@ -67,6 +71,9 @@ export default {
 </script>
 <style>
 #avatar:hover + div {
+  opacity: 1;
+}
+#banner:hover + div {
   opacity: 1;
 }
 </style>

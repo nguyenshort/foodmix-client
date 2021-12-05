@@ -4,8 +4,8 @@
 
     <search-overlay />
 
-    <div class='w-2/3 mx-auto'>
-      <div class='mt-16'>
+    <div class='lg:w-2/3 w-full mx-auto'>
+      <div class='mt-24 lg:mt-16'>
         <client-only>
           <lazy-search-content v-if='$route.query.keyword' :key='$route.fullPath' />
           <v-lottie-player
@@ -20,6 +20,14 @@
 
       </div>
     </div>
+
+    <portal to="title">
+      Tìm Kiếm
+    </portal>
+
+    <portal to='actions'>
+      <lazy-icon-button icon='home' :callback='() => $router.push("/")' />
+    </portal>
 
   </div>
 

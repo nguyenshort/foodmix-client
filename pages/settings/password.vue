@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class='max-w-xl ml-12' @submit.prevent='updateAccount()'>
+    <form class='max-w-xl lg:ml-12' @submit.prevent='updateAccount()'>
       <div class='flex flex-col mt-5'>
         <label class='uppercase text-xs text-indigo-500' for='old'>Mật Khẩu Hiện Tại</label>
         <input id='old' v-model='form.oldPassword' minlength='6' class='bg-indigo-50 border-b-2 border-transparent duration-500 ease-in-out focus:border-indigo-500 focus:outline-none font-thin mt-2 px-5 py-3 text-gray-600 text-sm transition' type='password' placeholder='******' required />

@@ -1,5 +1,10 @@
 <template>
-  <div class='h-80 w-80 relative'>
+  <div
+    class='relative'
+    :style='{
+      height: `${width}px`
+    }'
+  >
     <div class='h-full overflow-hidden relative rounded-lg shadow-lg w-full'>
       <div class='absolute bottom-0 m-4 z-10'>
         <slot name='bottom'></slot>
@@ -29,6 +34,19 @@ export default {
     isReady: {
       type: Boolean,
       required: true
+    }
+  },
+  data() {
+    return {
+      width: 0
+    }
+  },
+  mounted() {
+    this.configView()
+  },
+  methods: {
+    configView() {
+      this.width = this.$el.scrollWidth
     }
   }
 }

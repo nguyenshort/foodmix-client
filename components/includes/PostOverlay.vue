@@ -9,11 +9,11 @@
         src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
       />
     </div>
-    <div class='m-auto max-w-6xl relative z-10 h-full'>
+    <div class='m-auto max-w-6xl relative z-10 h-full px-3 xl:px-0'>
       <div class='flex flex-warp h-full'>
-        <div class='w-2/3 pt-8 pb-10'>
+        <div class='xl:w-2/3 pt-8 pb-10 w-full'>
           <div
-            class='text-white transition duration-300 ease-in-out transform'
+            class='text-white transition duration-300 ease-in-out transform mb-5'
             :class='{
                 "translate-y-0 opacity-100": isReady,
                 "-translate-y-6 opacity-0": !isReady
@@ -21,9 +21,9 @@
           >
             <breadcrumb-view :breadcrumbs='breadcrumbs' />
           </div>
-          <div class='flex flex-col h-full justify-evenly text-white'>
+          <div class='flex flex-wrap h-full lg:px-10 text-white xl:px-0'>
             <h1
-              class='capitalize text-5xl my-7 font-semibold transition duration-300 ease-in-out transform delay-200 leading-tight line-clamp-2'
+              class='capitalize text-xl w-full xl:text-5xl lg:text-left text-center font-semibold transition duration-300 ease-in-out transform delay-200 leading-tight line-clamp-2 xl:my-5'
               :class='{
                 "translate-y-0 opacity-100": isReady,
                 "-translate-y-6 opacity-0": !isReady
@@ -33,7 +33,21 @@
             </h1>
 
             <div
-              class='flex flex-wrap items-center text-sm transition duration-300 ease-in-out transform delay-500'
+              class='my-4 w-full xl:hidden lg:mx-0 lg:w-auto'
+            >
+              <img
+                class='h-auto max-w-xs lg:mx-0 block mx-auto lazyload object-cover w-full border-8 rounded-xl shadow-2xl transition duration-300 ease-in-out transform delay-500'
+                :data-src='background'
+                alt=''
+                src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
+                :class='{
+                "opacity-0": !isReady
+              }'
+              />
+            </div>
+
+            <div
+              class='transition duration-300 ease-in-out transform delay-700 xl:delay-500 lg:w-1/2 w-full xl:w-full'
               :class='{
                 "translate-y-0 opacity-100": isReady,
                 "-translate-y-6 opacity-0": !isReady

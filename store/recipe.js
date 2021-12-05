@@ -1,14 +1,16 @@
 export const state = () => ({
   recipe: [],
   reviews: [],
-  isReady: false
+  isReady: false,
+  isBookmark: false
 })
 
 // getters
 export const getters = {
   recipe: (state) => state.recipe,
   isReady: (state) => state.isReady,
-  reviews: (state) => state.reviews
+  reviews: (state) => state.reviews,
+  isBookmark: (state) => state.isBookmark
 }
 
 // mutations
@@ -31,6 +33,10 @@ export const mutations = {
 
   PUSH_REVIEW(state, data) {
     state.reviews.unshift(data)
+  },
+
+  SET_IS_BOOKMARK(state, data) {
+    state.isBookmark = data
   }
 }
 
@@ -57,7 +63,6 @@ export const actions = {
   setIsReady({ commit }, payload) {
     commit('SET_IS_READY', payload)
   },
-
 
   async addReview({ commit, getters, rootState }, { rating, content }) {
 
@@ -86,5 +91,25 @@ export const actions = {
 
     }
 
+  },
+
+  async toggleBookmark({ commit, getters }) {
+    try {
+      if(getters.isBookmark) {
+        await this.$axios.$delete(`/recipes/${getters.recipe.slug}/bookmark`)
+      } else {
+        await this.$axios.$post(`/recipes/${getters.recipe.slug}/bookmark`)
+      }
+      commit('SET_IS_BOOKMARK', !getters.isBookmark)
+    } catch (e) {}
+  },
+
+  async checkBookmark({ commit, getters }) {
+    try {
+      const { data } = await this.$axios.$get(`/recipes/${getters.recipe.slug}/bookmark`)
+      commit('SET_IS_BOOKMARK', data)
+    } catch (e) {
+
+    }
   }
 }

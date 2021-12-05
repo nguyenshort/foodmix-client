@@ -16,7 +16,7 @@
 
     <div class='mt-5'>
       <div class='flex flex-wrap'>
-        <div class='w-3/5 border-t-2 border-r-2 border-b-2'>
+        <div class='w-full sm:w-3/5 border-t-2 sm:border-r-2 border-b-2'>
 
           <ul class='text pt-7 pr-7 pb-7 pl-3'>
             <li v-for='(item, index) in lists' :key='index' class='h-9 flex items-center justify-between'>
@@ -28,7 +28,7 @@
           </ul>
 
         </div>
-        <div class='w-2/5 border-t-2 border-b-2'>
+        <div class='hidden sm:block sm:w-2/5 border-t-2 border-b-2'>
           <div class='flex flex-col h-full items-center justify-center'>
             <p class='text-sm mb-2'>Chia Sẻ Cảm Nghĩ Của Bạn</p>
             <button
@@ -44,13 +44,17 @@
     </div>
 
     <div class='mt-5'>
-      <ul>
-        <li v-for='(review, index) in reviews' :key='index' class='mb-5 flex'>
+      <transition-group name="review" tag="ul">
+        <li v-for='(review, index) in reviews' :key='review._id' class='mb-5 flex' :review-index='index'>
           <div class='w-16'>
-            <img class='w-11 h-11 object-cover rounded-full' :src='$CDN(review.user.avatar)' alt='' />
+            <nuxt-link :to='{ name: "profile-reviews", params: { slug: review.user.slug } }'>
+              <img class='w-11 h-11 object-cover rounded-full' :src='$CDN(review.user.avatar)' alt='' />
+            </nuxt-link>
           </div>
           <div class='w-full border-b-2 pb-5'>
-            <h4 class='font-mono'>{{ review.user.name }}</h4>
+            <nuxt-link :to='{ name: "profile-reviews", params: { slug: review.user.slug } }'>
+              <h4 class='font-mono'>{{ review.user.name }}</h4>
+            </nuxt-link>
             <div class='mb-2'>
               <fa v-for='index2 in 5' :key='index2' icon="star" class='text-yellow-500 text-xs mr-0.5'/>
             </div>
@@ -60,7 +64,7 @@
             <span class='italic text-gray-500 text-xs mt-3'> {{ $moment(review.createdAt).format('LL') }}</span>
           </div>
         </li>
-      </ul>
+      </transition-group>
     </div>
   </div>
 
@@ -75,17 +79,6 @@ export default {
   data() {
     return {
       lists: ['Hướng Dẫn Có Tâm', 'Món Ăn Dễ Nấu', 'Nguyên Liệu Dễ Tìm', 'Giá Thành Thực Hiện'],
-      comment: {
-        content: 'Ví dụ: một ứng dụng có thể có màn hình hiển thị các sản phẩm. Khi người dùng chạm vào hình ảnh của một sản phẩm, một màn hình mới sẽ hiển thị thông tin chi tiết về sản phẩm.',
-        countLike: 10,
-        countReply: 3,
-        rating: 4.5,
-        createdAt: '20/10/2021',
-        user: {
-          name: 'Yuan',
-          avatar: 'https://user-pic.webnovel.com/userheadimg/4310841381-10/100.jpg?uut=1593713531915&imageMogr2/quality/80'
-        }
-      },
       isLoading: false,
       page: 0,
     }
@@ -106,3 +99,14 @@ export default {
   }
 }
 </script>
+<style>
+.review-enter-active,
+.review-leave-active {
+  transition: opacity .5s;
+}
+
+.review-enter,
+.review-leave-to {
+  opacity: 0;
+}
+</style>

@@ -34,6 +34,9 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
+  pageTransition: {
+    mode: "in-out"
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -44,7 +47,7 @@ export default {
     { src: '~/plugins/lottie.js', ssr: false },
     { src: '~/plugins/vue-cropperjs.js', ssr: false },
     { src: '~/plugins/cdn.js', ssr: true },
-    // { src: '~/plugins/vue-content-loader.js', ssr: false }
+    { src: '~/plugins/vue-flip-toolkit.js', ssr: false }
 
   ],
 
@@ -60,14 +63,16 @@ export default {
     '@nuxtjs/fontawesome',
     'nuxt-lazysizes',
     ['@nuxtjs/dotenv', { filename: '.env' }],
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    'nuxt-animejs'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    'portal-vue/nuxt'
   ],
 
   fontawesome: {
@@ -96,7 +101,12 @@ export default {
         'faUndo',
         'faCalendarAlt',
         'faMapMarkerAlt',
-        'faDrumstickBite'
+        'faDrumstickBite',
+        'faChevronLeft',
+        'faPen',
+        'faExternalLinkAlt',
+        'faHeart',
+        'faHome'
       ],
       regular: ['faStar']
     }
@@ -104,6 +114,17 @@ export default {
 
   lazySizes: {
     /* module options */
+  },
+
+  mq: {
+    defaultBreakpoint: 'sm',
+    breakpoints: {
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      '2xl': Infinity
+    }
   },
 
   router: {

@@ -7,7 +7,7 @@
             <img
               ref='bannerImage'
               src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
-              data-src='http://localhost:3000/images/banner.jpg'
+              :data-src='$CDN(profile.banner)'
               class='duration-500 h-full object-cover transform transition w-full lazyload ease-in-out'
               :class='{
                 "opacity-0 scale-105": !isReady
@@ -16,17 +16,22 @@
             />
           </div>
           <div
-            class='absolute transition duration-500 ease-in-out border-8 border-white bottom-0 h-32 left-0 overflow-hidden rounded-full shadow-md transform translate-x-1/4 translate-y-1/2 w-32'
+            class='absolute transition duration-500 ease-in-out lg:border-8 border-4 border-white bottom-0 lg:h-32 left-0 overflow-hidden rounded-full shadow-md transform translate-x-1/4 translate-y-1/2 lg:w-32 w-24 h-24'
             :class='{
               "scale-110 opacity-0": !isReady
             }'
           >
-            <img src='http://localhost:4000/images/users/619cf2c7fa9117bdc16897aa/user/c73f6acc-a5a3-450f-879b-e4e279bd94db.jpg' class='w-full h-full object-cover'  alt='' />
+            <img
+              src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
+              :data-src='$CDN(profile.avatar)'
+              class='w-full h-full object-cover lazyload'
+              alt=''
+            />
           </div>
         </div>
         <div class='mt-4'>
           <h5
-            class='font-semibold ml-44 text-3xl transition duration-500 ease-in-out transform delay-150'
+            class='font-semibold lg:ml-44 text-2xl lg:text-3xl transition mr-3 line-clamp-1 duration-500 ease-in-out transform delay-150 ml-32'
             :class='{
               "-translate-y-5 opacity-0": !isReady
             }'
@@ -34,7 +39,7 @@
             {{ profile.name }}
           </h5>
           <p
-            class='mt-8 transition duration-500 ease-in-out transform delay-300'
+            class='mt-8 transition duration-500 ease-in-out transform delay-300 px-3 lg:px-0'
             :class='{
               "-translate-y-5 opacity-0": !isReady
             }'
@@ -42,16 +47,16 @@
             {{ profile.about || '--' }}
           </p>
           <div
-            class='flex items-center mt-5 transition duration-500 ease-in-out transform delay-500'
+            class='flex items-center mt-5 transition duration-500 ease-in-out transform delay-500 px-3 lg:px-0 flex-wrap'
             :class='{
               "-translate-y-5 opacity-0": !isReady
             }'
           >
-            <div class='mr-10'>
+            <div class='mr-10 sm:mb-0 mb-5'>
               <fa icon='calendar-alt'></fa>
               <span>{{ $moment(profile.createdAt).format('ll') }}</span>
             </div>
-            <div class='mr-10'>
+            <div class='mr-10 sm:mb-0  mb-5'>
               <fa icon='map-marker-alt'></fa>
               <span>{{ profile.province || '--' }}</span>
             </div>
@@ -62,7 +67,7 @@
           </div>
 
           <div
-            class='mt-5 text-xl flex transition duration-500 ease-in-out transform delay-700'
+            class='mt-5 text-xl flex transition duration-500 ease-in-out transform delay-700 px-3 lg:px-0'
             :class='{
               "-translate-y-5 opacity-0": !isReady
             }'
@@ -109,6 +114,9 @@
     >
       <nuxt-child />
     </div>
+    <portal to="title">
+      Trang Cá Nhân
+    </portal>
   </div>
 </template>
 

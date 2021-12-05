@@ -1,15 +1,7 @@
 <template>
   <lazy-post-avatar :is-ready='isReady' :avatar='recipe.avatar' >
     <template #bottom>
-      <button
-        class='bg-white h-9 rounded-full w-9 bt'
-        :class='{
-          _loading: isLoading
-        }'
-        @click='toggleBookmark()'
-      >
-        <fa :icon=" isBookmark ? 'check' : 'bookmark'" />
-      </button>
+      <lazy-icon-button class='bg-white' :icon=" isBookmark ? 'check' : 'bookmark'" :callback='bookmarkHandle' />
       <button class='bg-white h-9 rounded-full w-9 ml-3'><fa icon="share-alt" /></button>
     </template>
   </lazy-post-avatar>
@@ -18,54 +10,30 @@
 <script>
 
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'FoodAvatar',
   data() {
     return {
-      isBookmark: false,
       isLoading: false
     }
   },
   computed: {
-    ...mapGetters('recipe', ['recipe', 'isReady']),
+    ...mapGetters('recipe', ['recipe', 'isReady', 'isBookmark']),
     ...mapGetters('pref', ['user', 'auth'])
   },
-  mounted() {
-    this.checkBookmark()
-  },
+  mounted() {},
   methods: {
-    async checkBookmark() {
-      if(!this.auth) {
-        return
-      }
-      try {
+    ...mapActions('recipe', ['toggleBookmark']),
 
-        const { data } = await this.$axios.$get(`/recipes/${this.recipe.slug}/bookmark`)
-        this.isBookmark = data
-
-      } catch (e) {}
-    },
-
-    async toggleBookmark() {
-
+    async bookmarkHandle() {
 
       if(!this.auth) {
         return this.$nuxt.$emit('loginModal')
       }
       this.isLoading = true
-      try {
-        if(this.isBookmark) {
-          await this.$axios.$delete(`/recipes/${this.recipe.slug}/bookmark`)
-        } else {
-          await this.$axios.$post(`/recipes/${this.recipe.slug}/bookmark`)
-        }
-        this.isBookmark = !this.isBookmark
-      } catch (e) {
-
-      }
-
+      await this.toggleBookmark()
       this.isLoading = false
 
     }

@@ -9,7 +9,7 @@
     <title-view title='Có Thể Bạn Thích'></title-view>
     <div class='mt-4'>
       <div class='flex flex-wrap'>
-        <div v-for='(recipe, index) in recipes' :key='index' class='w-1/3 p-3'>
+        <div v-for='(recipe, index) in recipes' :key='index' class='w-full sm:w-1/2 md:w-1/3 px-0 sm:px-3 mb-5'>
           <lazy-food-item :recipe='recipe' />
         </div>
       </div>

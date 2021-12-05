@@ -1,5 +1,5 @@
 <template>
-  <div class='w-80 relative bg-gray-100 mt-8 p-4 rounded-lg shadow'>
+  <div class='relative bg-gray-100 mt-8 p-4 rounded-lg shadow'>
 
     <h2 class='font-semibold text-xl'>Nguyên Liệu</h2>
 

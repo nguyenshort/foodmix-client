@@ -2,8 +2,8 @@
   <div
     class='translate-sidebar delay-300 transition duration-1000 translate-y-0'
     :class='{
-        "opacity-0": overlayHeight === 0,
-        "opacity-100": overlayHeight > 0
+        "opacity-0": !isReady,
+        "opacity-100": isReady
     }'
     :style='{
         transform: `translateY(${ overlayHeight * -.6 }px)`
@@ -22,11 +22,12 @@ export default {
     anchor: {
       type: String,
       default: '.post-overlay'
-    }
+    },
   },
   data() {
     return {
-      overlayHeight: 0
+      overlayHeight: 0,
+      isReady: false
     }
   },
   mounted() {
@@ -38,8 +39,13 @@ export default {
   methods: {
 
     setupSidebar() {
+      if(window.innerWidth >= 1280) {
+        this.overlayHeight = document.querySelector(this.anchor).offsetHeight
+        this.isReady = true
+      } else {
+        this.isReady = true
+      }
 
-      this.overlayHeight = document.querySelector(this.anchor).offsetHeight
 
     }
 

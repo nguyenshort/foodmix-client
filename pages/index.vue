@@ -2,10 +2,12 @@
   <div class='bg-gray-100'>
     <div class='max-w-6xl m-auto '>
 
+      <lazy-search-read-only />
+
       <banner-view />
       <div class='flex flex-warp mt-7 pb-7'>
 
-        <div class='w-2/3'>
+        <div class='w-full lg:w-3/5 xl:w-2/3'>
 
           <lazy-categories-view :categories='[]' />
 
@@ -13,7 +15,7 @@
 
         </div>
 
-        <div class='w-1/3 pl-6'>
+        <div class='lg:w-2/5 xl:w-1/3 lg:pl-6 w-full'>
           <fanpage-side-bar />
           <lazy-top-authors class='mt-7' />
         </div>

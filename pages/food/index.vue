@@ -2,52 +2,71 @@
   <div class=''>
     <lazy-food-overlay />
     <div class='m-auto max-w-6xl relative z-10'>
-      <div class='flex flex-warp'>
+      <div class='block lg:flex'>
 
-        <div class='w-2/3'>
+        <div
+          class='mt-7 transition duration-300 delay-500 ease-in-out transform px-3 xl:px-0 w-full lg:w-3/5 xl:w-2/3'
+        >
 
-          <div
-            class='mt-7 transition duration-300'
-            :class='{
-                "translate-y-0 opacity-100": isReady,
-                "-translate-y-6 opacity-0": !isReady
-             }'
-          >
+          <lazy-food-about />
 
-            <lazy-food-about />
-
-            <lazy-how-to-cooking />
-
-            <lazy-food-review />
-
-            <lazy-food-may-like />
-
+          <div class='mt-7 lg:hidden'>
+            <title-view title='Thành Phần Món Ăn'></title-view>
+            <lazy-food-ingredients />
           </div>
 
-        </div>
+          <lazy-how-to-cooking />
 
-        <div class='w-1/3 pl-6'>
+          <lazy-food-review />
 
-          <!-- food sidebar -->
-          <lazy-translate-sidebar>
-
-            <lazy-food-avatar />
-            <lazy-food-ingredients />
-            <lazy-fanpage-side-bar class='mt-7' />
-
-          </lazy-translate-sidebar>
+          <lazy-food-may-like />
 
         </div>
+
+        <lazy-translate-sidebar class='lg:w-2/5 xl:w-1/3 lg:px-6 w-full mt-7 xl:mt-0'>
+
+          <lazy-food-avatar class='hidden xl:block' />
+          <lazy-food-ingredients class='hidden lg:block' />
+          <lazy-fanpage-side-bar class='mt-7' />
+
+        </lazy-translate-sidebar>
 
       </div>
     </div>
     <lazy-review-modal />
+
+    <portal to="title">
+      Công Thức Nấu Ăn
+    </portal>
+    <portal to='actions'>
+      <div>
+        <lazy-icon-button
+          class='mr-2'
+          :class='{
+            "text-red-600": isBookmark
+          }'
+          icon='heart'
+          :callback='bookmarkHandle'
+        />
+        <button class='text-sm'>
+          <fa icon='external-link-alt' />
+        </button>
+      </div>
+    </portal>
+
+    <lazy-floating-action-button
+      icon='pen'
+      :is-ready='isReady'
+      :delay='700'
+      :callback='() => $nuxt.$emit("reviewModal")'
+    ></lazy-floating-action-button>
+
   </div>
 </template>
 
 <script>
 
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'FoodDetail',
@@ -55,7 +74,30 @@ export default {
     await store.dispatch('recipe/getRecipe', route.params.slug)
   },
   computed: {
-    ...mapGetters('recipe', ['isReady'])
+    ...mapGetters('recipe', ['isReady', 'recipe', 'isBookmark']),
+    ...mapGetters('pref', ['user', 'auth'])
+  },
+  mounted() {
+    this.checkBookmarkHandle()
+  },
+  methods: {
+    ...mapActions('recipe', ['toggleBookmark', 'checkBookmark']),
+    async checkBookmarkHandle() {
+      if(!this.auth) {
+        return
+      }
+      await this.checkBookmark()
+    },
+    async bookmarkHandle() {
+
+      if(!this.auth) {
+        return this.$nuxt.$emit('loginModal')
+      }
+      this.isLoading = true
+      await this.toggleBookmark()
+      this.isLoading = false
+
+    }
   }
 }
 </script>

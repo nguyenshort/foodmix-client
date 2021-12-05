@@ -1,13 +1,15 @@
 <template>
-  <div class=''>
+  <div class='px-3 xl:px-0'>
     <title-view title='Phân Loại'></title-view>
     <div class='mt-4'>
       <client-only>
         <swiper ref="mySwiper" :options="swiperOptions">
           <swiper-slide v-for='(category, index) in categories' :key='index'>
-            <nuxt-link :to='{ name: "category", params: { slug: category.slug } }' class='text-sm text-center cursor-pointer'>
-              <img :src='category.avatar' alt='' class='rounded-full' />
-              <div class='mt-1'>{{ category.name }}</div>
+            <nuxt-link :to='{ name: "category", params: { slug: category.slug } }' class='text-sm text-center cursor-pointer flex flex-col items-center'>
+              <div class='w-20 h-20 border-8 border-white rounded-full overflow-hidden shadow'>
+                <img :src='category.avatar' alt='' class='object-cover w-full h-full' />
+              </div>
+              <p class='mt-2'>{{ category.name }}</p>
             </nuxt-link>
           </swiper-slide>
         </swiper>
@@ -32,10 +34,21 @@ export default {
     return {
       swiperOptions: {
         spaceBetween: 30,
-        slidesPerView: 7,
-        loop: true,
-        autoplay: {
-          delay: 3000,
+        slidesPerView: 3,
+        // loop: false,
+        // autoplay: {
+        //   delay: 3000,
+        // }
+        breakpoints: {
+          640: {
+            slidesPerView: 4
+          },
+          1024: {
+            slidesPerView: 5
+          },
+          1025: {
+            slidesPerView: 6
+          }
         }
       }
     }
