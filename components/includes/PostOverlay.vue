@@ -3,7 +3,7 @@
     <div class='absolute h-full w-full overflow-hidden'>
       <img
         ref='recipeAvatar'
-        class='blur brightness-90 filter h-full lazyload object-cover scale-110 transform w-full'
+        class='blur brightness-90 filter h-full lazyload object-cover scale-110 transform w-full opacity-0'
         :data-src='background'
         alt=''
         src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
@@ -12,49 +12,30 @@
     <div class='m-auto max-w-6xl relative z-10 h-full px-3 xl:px-0'>
       <div class='flex flex-warp h-full'>
         <div class='xl:w-2/3 pt-8 pb-10 w-full'>
-          <div
-            class='text-white transition duration-300 ease-in-out transform mb-5'
-            :class='{
-                "translate-y-0 opacity-100": isReady,
-                "-translate-y-6 opacity-0": !isReady
-              }'
-          >
+
+          <div class='text-white mb-5 opacity-0 post-overlay-item'>
             <breadcrumb-view :breadcrumbs='breadcrumbs' />
           </div>
+
           <div class='flex flex-wrap h-full lg:px-10 text-white xl:px-0'>
             <h1
-              class='capitalize text-xl w-full xl:text-5xl lg:text-left text-center font-semibold transition duration-300 ease-in-out transform delay-200 leading-tight line-clamp-2 xl:my-5'
-              :class='{
-                "translate-y-0 opacity-100": isReady,
-                "-translate-y-6 opacity-0": !isReady
-              }'
+              class='post-overlay-item capitalize opacity-0 text-xl w-full xl:text-5xl lg:text-left text-center font-semibold leading-tight line-clamp-2 xl:my-5'
             >
               {{ title }}
             </h1>
 
-            <div
-              class='my-4 w-full xl:hidden lg:mx-0 lg:w-auto'
+            <div class='my-4 w-full xl:hidden lg:mx-0 lg:w-auto opacity-0 post-overlay-item'
             >
               <img
-                class='h-auto max-w-xs lg:mx-0 block mx-auto lazyload object-cover w-full border-8 rounded-xl shadow-2xl transition duration-300 ease-in-out transform delay-500'
+                class='h-auto max-w-xs lg:mx-0 block mx-auto lazyload object-cover w-full border-8 rounded-xl shadow-2xl'
                 :data-src='background'
                 alt=''
                 src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
-                :class='{
-                "opacity-0": !isReady
-              }'
               />
             </div>
 
-            <div
-              class='transition duration-300 ease-in-out transform delay-700 xl:delay-500 lg:w-1/2 w-full xl:w-full'
-              :class='{
-                "translate-y-0 opacity-100": isReady,
-                "-translate-y-6 opacity-0": !isReady
-              }'
-            >
+            <div class='opacity-0 lg:w-1/2 w-full xl:w-full opacity-0 post-overlay-item'>
               <slot></slot>
-
             </div>
           </div>
         </div>
@@ -93,11 +74,24 @@ export default {
 
       this.$refs.recipeAvatar.addEventListener('lazyloaded', () => {
 
-        setTimeout(() => {
+        this.$emit('ready')
 
-          this.$emit('ready')
+        this.$anime({
+          targets: this.$refs.recipeAvatar,
+          opacity: [0, 1],
+          scale: [1, 1.1],
+          duration: 1200
+        })
 
-        }, 300)
+        this.$anime({
+          targets: ['.post-overlay-item', '.recipe-body'],
+          translateY: [-50, 0],
+          opacity: [0, 1],
+          duration: 1200,
+          delay: (el, i) => {
+            return 500 + 150 * i
+          }
+        })
 
       })
 

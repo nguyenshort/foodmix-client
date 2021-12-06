@@ -1,14 +1,5 @@
 <template>
-  <div
-    class='translate-sidebar delay-300 transition duration-1000 translate-y-0'
-    :class='{
-        "opacity-0": !isReady,
-        "opacity-100": isReady
-    }'
-    :style='{
-        transform: `translateY(${ overlayHeight * -.6 }px)`
-    }'
-  >
+  <div class='translate-sidebar opacity-0'>
 
     <slot></slot>
 
@@ -41,9 +32,15 @@ export default {
     setupSidebar() {
       if(window.innerWidth >= 1280) {
         this.overlayHeight = document.querySelector(this.anchor).offsetHeight
-        this.isReady = true
+        this.$anime({
+          targets: this.$el,
+          translateY: [0, -this.overlayHeight * 0.6],
+          opacity: [0, 1],
+          duration: 2000,
+          delay: 700
+        })
       } else {
-        this.isReady = true
+        this.$el.classList.remove('opacity-0')
       }
 
 

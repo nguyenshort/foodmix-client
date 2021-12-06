@@ -4,9 +4,7 @@
     <div class='m-auto max-w-6xl relative z-10'>
       <div class='block lg:flex'>
 
-        <div
-          class='mt-7 transition duration-300 delay-500 ease-in-out transform px-3 xl:px-0 w-full lg:w-3/5 xl:w-2/3'
-        >
+        <div class='mt-7 px-3 xl:px-0 w-full lg:w-3/5 xl:w-2/3 recipe-body opacity-0'>
 
           <lazy-food-about />
 

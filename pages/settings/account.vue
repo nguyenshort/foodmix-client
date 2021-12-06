@@ -1,7 +1,8 @@
 <template>
   <div>
     <form class='max-w-xl lg:ml-12' @submit.prevent='updateAccount()'>
-      <div class='flex items-center'>
+
+      <div class='flex items-center opacity-0 form-item'>
         <div class='h-20 overflow-hidden relative w-20 cursor-pointer rounded-full'>
           <input id='avatar' class='absolute h-full opacity-0 w-full z-20 cursor-pointer' type='file' accept='image/*' @change='buildCropper($event, "avatar")' />
           <div class='absolute duration-300 flex h-full opacity-0 text-2xl text-white transition w-full z-10' style='background: #0000003b'>
@@ -11,7 +12,7 @@
         </div>
         <label class='uppercase text-xs text-indigo-500 ml-4' for='avatar'>Ảnh Đại Diện</label>
       </div>
-      <div class='flex flex-col mt-5'>
+      <div class='flex flex-col mt-5 opacity-0 form-item'>
         <label class='uppercase text-xs text-indigo-500' for='banner'>Ảnh Bìa</label>
         <div class='overflow-hidden relative mt-2'>
           <input id='banner' type='file' accept='image/*' class='absolute z-20 top-0 left-0 w-full h-full opacity-0 cursor-pointer' @change='buildCropper($event, "banner")' />
@@ -21,15 +22,15 @@
           <img class='w-full h-full object-cover relative z-0' :src='$CDN(form.banner)'  alt='' />
         </div>
       </div>
-      <div class='flex flex-col mt-5'>
+      <div class='flex flex-col mt-5 opacity-0 form-item'>
         <label class='uppercase text-xs text-indigo-500' for='name'>Tên</label>
         <input id='name' v-model='form.name' required class='bg-indigo-50 border-b-2 border-transparent duration-500 ease-in-out focus:border-indigo-500 focus:outline-none font-thin mt-2 px-5 py-3 text-gray-600 text-sm transition' type='text' placeholder='foodmix' />
       </div>
-      <div class='flex flex-col mt-5'>
+      <div class='flex flex-col mt-5 opacity-0 form-item'>
         <label class='uppercase text-xs text-indigo-500' for='email'>Địa Chỉ Email</label>
         <input id='email' v-model='form.email' required class='bg-indigo-50 border-b-2 border-transparent duration-500 ease-in-out focus:border-indigo-500 focus:outline-none font-thin mt-2 px-5 py-3 text-gray-600 text-sm transition' type='email' placeholder='user@foodmix.com' />
       </div>
-      <div class='flex flex-col mt-5'>
+      <div class='flex flex-col mt-5 opacity-0 form-item'>
         <label class='uppercase text-xs text-indigo-500' for='province'>Chỗ Ở</label>
         <select id='province' v-model='form.province' required class='bg-indigo-50 border-b-2 border-transparent duration-500 ease-in-out focus:border-indigo-500 focus:outline-none font-thin mt-2 px-5 py-3 text-gray-600 text-sm transition'>
           <option v-for='(province, index) in provinces' :key='index' :value='province'>
@@ -37,19 +38,22 @@
           </option>
         </select>
       </div>
-      <div class='flex flex-col mt-5'>
+      <div class='flex flex-col mt-5 opacity-0 form-item'>
         <label class='uppercase text-xs text-indigo-500'>Giới Thiệu</label>
         <textarea id='about' v-model='form.about' placeholder='Giới thiệu đôi chút về bản thân' class='bg-indigo-50 h-36 border-b-2 border-transparent duration-500 ease-in-out focus:border-indigo-500 focus:outline-none font-thin mt-2 px-5 py-3 text-gray-600 text-sm transition' />
       </div>
-      <button
-        class='bt mt-5 text-sm bg-indigo-500 text-white p-2 w-32 rounded-full hover:bg-indigo-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300'
-        type='submit'
-        :class='{
+
+      <div class='opacity-0 form-item'>
+        <button
+          class='bt mt-5 text-sm bg-indigo-500 text-white p-2 w-32 rounded-full hover:bg-indigo-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300'
+          type='submit'
+          :class='{
           _loading: isLoading
         }'
-      >
-        Lưu Thay Đổi
-      </button>
+        >
+          Lưu Thay Đổi
+        </button>
+      </div>
     </form>
 
     <lazy-base-modal ref='cropAvatarModal' event='cropAvatar' title='Cắt Ảnh Của Bạn'>
@@ -172,7 +176,6 @@
           >
             Huỷ
           </button>
-
           <button
             class='bg-indigo-500 bt border-2 border-indigo-500 focus:outline-none hover:shadow-none p-2 rounded-full shadow-lg text-sm text-white w-1/3'
             :class='{
@@ -216,6 +219,17 @@ export default {
     this.form = Object.assign({}, this.user)
     Object.values(listProvinces).forEach((e)=> {
       this.provinces.push(e.name)
+    })
+  },
+  mounted() {
+    this.$anime({
+      targets: '.form-item',
+      translateY: [-50, 0],
+      opacity: [0, 1],
+      duration: 1000,
+      delay: (el, i) => {
+        return 300 + 150 * i
+      }
     })
   },
   methods: {

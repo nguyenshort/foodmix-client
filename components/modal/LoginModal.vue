@@ -1,10 +1,10 @@
 <template>
   <base-modal event='loginModal'>
-    <div class='h-90 login-modal-content bg-white -m-7 relative'>
+    <div class='login-modal-content bg-white -m-7 relative'>
       <form class='flex flex-col items-center pt-12 relative pb-7' @submit.prevent='loginHandle()'>
         <a class='font-semibold logo text-indigo-500 text-xl'>FoodMix</a>
         <p class='font-thin text-sm my-2'>Trở thành đầu bếp giỏi không hề khó</p>
-        <div class='mt-3 px-3 w-96'>
+        <div class='mt-3 px-3 w-full max-w-max'>
           <div class='flex flex-col'>
             <label class='uppercase text-xs text-indigo-500' for='emailLogin'>Địa Chỉ Email</label>
             <input id='emailLogin' v-model='email' class='bg-indigo-100 border-b-2 border-transparent duration-500 ease-in-out focus:border-indigo-500 focus:outline-none font-thin mt-1.5 px-5 py-3 text-gray-600 text-sm transition' type='email' />

@@ -3,13 +3,13 @@
     <title-view title='Phân Loại'></title-view>
     <div class='mt-4'>
       <client-only>
-        <swiper ref="mySwiper" :options="swiperOptions">
+        <swiper ref="mySwiper" :options="swiperOptions" @ready='startAnimation'>
           <swiper-slide v-for='(category, index) in categories' :key='index'>
             <nuxt-link :to='{ name: "category", params: { slug: category.slug } }' class='text-sm text-center cursor-pointer flex flex-col items-center'>
-              <div class='w-20 h-20 border-8 border-white rounded-full overflow-hidden shadow'>
+              <div class='w-20 h-20 border-8 border-white rounded-full overflow-hidden shadow opacity-0 categories-view-item'>
                 <img :src='category.avatar' alt='' class='object-cover w-full h-full' />
               </div>
-              <p class='mt-2'>{{ category.name }}</p>
+              <p class='mt-2 opacity-0 categories-view-name'>{{ category.name }}</p>
             </nuxt-link>
           </swiper-slide>
         </swiper>
@@ -55,6 +55,29 @@ export default {
   },
   computed: {
     ...mapGetters('home', ['categories'])
+  },
+  mounted() {},
+  methods: {
+    startAnimation() {
+      setTimeout(()=> {
+        this.$anime({
+          targets: '.categories-view-item',
+          translateX: [100, 0],
+          duration: 1200,
+          opacity: [0, 1],
+          delay: (el, i) => {
+            return 300 + 100 * i;
+          },
+        })
+
+        this.$anime({
+          targets: '.categories-view-name',
+          duration: 1200,
+          opacity: [0, 1],
+          delay: 700
+        })
+      }, 500)
+    }
   }
 }
 </script>

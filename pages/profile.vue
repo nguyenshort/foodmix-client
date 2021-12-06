@@ -8,50 +8,30 @@
               ref='bannerImage'
               src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
               :data-src='$CDN(profile.banner)'
-              class='duration-500 h-full object-cover transform transition w-full lazyload ease-in-out'
-              :class='{
-                "opacity-0 scale-105": !isReady
-              }'
+              class='h-full object-cover w-full lazyload opacity-0 profile-image'
               alt=''
             />
           </div>
-          <div
-            class='absolute transition duration-500 ease-in-out lg:border-8 border-4 border-white bottom-0 lg:h-32 left-0 overflow-hidden rounded-full shadow-md transform translate-x-1/4 translate-y-1/2 lg:w-32 w-24 h-24'
-            :class='{
-              "scale-110 opacity-0": !isReady
-            }'
-          >
-            <img
-              src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
-              :data-src='$CDN(profile.avatar)'
-              class='w-full h-full object-cover lazyload'
-              alt=''
-            />
+          <div class='absolute bottom-0 lg:h-32 left-0 transform translate-x-1/4 translate-y-1/2 lg:w-32 w-24 h-24'>
+            <div class='opacity-0 profile-image lg:border-8 border-4 border-white rounded-full shadow-md overflow-hidden'>
+              <img
+                src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
+                :data-src='$CDN(profile.avatar)'
+                class='w-full h-full object-cover lazyload'
+                alt=''
+              />
+            </div>
           </div>
         </div>
         <div class='mt-4'>
-          <h5
-            class='font-semibold lg:ml-44 text-2xl lg:text-3xl transition mr-3 line-clamp-1 duration-500 ease-in-out transform delay-150 ml-32'
-            :class='{
-              "-translate-y-5 opacity-0": !isReady
-            }'
+          <h5 class='font-semibold lg:ml-44 text-2xl lg:text-3xl mr-3 line-clamp-1 opacity-0 ml-32 profile-item'
           >
             {{ profile.name }}
           </h5>
-          <p
-            class='mt-8 transition duration-500 ease-in-out transform delay-300 px-3 lg:px-0'
-            :class='{
-              "-translate-y-5 opacity-0": !isReady
-            }'
-          >
+          <p class='mt-8 opacity-0 px-3 lg:px-0 profile-item'>
             {{ profile.about || '--' }}
           </p>
-          <div
-            class='flex items-center mt-5 transition duration-500 ease-in-out transform delay-500 px-3 lg:px-0 flex-wrap'
-            :class='{
-              "-translate-y-5 opacity-0": !isReady
-            }'
-          >
+          <div class='flex items-center mt-5 opacity-0 px-3 lg:px-0 flex-wrap profile-item'>
             <div class='mr-10 sm:mb-0 mb-5'>
               <fa icon='calendar-alt'></fa>
               <span>{{ $moment(profile.createdAt).format('ll') }}</span>
@@ -66,12 +46,7 @@
             </div>
           </div>
 
-          <div
-            class='mt-5 text-xl flex transition duration-500 ease-in-out transform delay-700 px-3 lg:px-0'
-            :class='{
-              "-translate-y-5 opacity-0": !isReady
-            }'
-          >
+          <div class='mt-5 text-xl flex opacity-0 px-3 lg:px-0 profile-item'>
             <nuxt-link
               v-slot="{ isActive, navigate, href }"
               :to='{ name: "profile-reviews", params: { slug: $route.params.slug } }'
@@ -106,12 +81,7 @@
         </div>
       </div>
     </div>
-    <div
-      class='mx-auto max-w-4xl relative mt-7 min-h-screen-1/2 transition duration-500 ease-in-out transform delay-1000'
-      :class='{
-         "opacity-0": !isReady
-      }'
-    >
+    <div class='mx-auto max-w-4xl relative mt-7 min-h-screen-1/2 opacity-0 profile-item'>
       <nuxt-child />
     </div>
     <portal to="title">
@@ -151,11 +121,22 @@ export default {
 
       this.$refs.bannerImage.addEventListener('lazyloaded', () => {
 
-        setTimeout(() => {
+        this.$anime({
+          targets: ['.profile-image'],
+          opacity: [0, 1],
+          scale: [1, 1.1],
+          duration: 1200
+        })
 
-          this.isReady = true
-
-        }, 100)
+        this.$anime({
+          targets: ['.profile-item'],
+          translateY: [-50, 0],
+          opacity: [0, 1],
+          duration: 1200,
+          delay: (el, i) => {
+            return 500 + 150 * i
+          }
+        })
 
       })
 

@@ -10,16 +10,13 @@
     <a class='absolute top-0 left-0 w-full h-full close-overlay cursor-pointer' title='Close' @click='dispose()'></a>
     <div
       :id='`${event}-body`'
-      class='border-indigo-600 border-t-4 modal-content relative py-7 transition duration-500 ease-in-out transform w-full bg-white mx-3 sm:mx-0'
+      ref='modalBody'
+      class='border-indigo-600 border-t-4 modal-content relative py-7 w-full bg-white mx-3 sm:mx-0 opacity-0'
       :style='
         {
           maxWidth: maxWidth + "px"
         }
       '
-      :class='{
-        "scale-95 opacity-0": !showModal,
-        "scale-100 opacity-100": showModal
-      }'
     >
       <a class='-translate-x-7 z-10 absolute close-button right-0 text-xl top-0 transform translate-y-5 cursor-pointer' @click='dispose()'>
         <fa icon='times'></fa>
@@ -76,7 +73,15 @@ export default {
     init(data) {
       this.data = data
       this.showModal = true
-      this.$nuxt.$emit(`${this.event}Init`)
+      this.$anime({
+        targets: this.$refs.modalBody,
+        scale: [0.9, 1],
+        opacity: [0, 1],
+        duration: 1500,
+        complete: (anime) => {
+          this.$nuxt.$emit(`${this.event}Init`)
+        }
+      })
     },
 
     setupModal() {

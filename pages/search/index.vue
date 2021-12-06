@@ -5,7 +5,7 @@
     <search-overlay />
 
     <div class='lg:w-2/3 w-full mx-auto'>
-      <div class='mt-24 lg:mt-16'>
+      <div class='mt-24 lg:mt-16 opacity-0 search-item'>
         <client-only>
           <lazy-search-content v-if='$route.query.keyword' :key='$route.fullPath' />
           <v-lottie-player
