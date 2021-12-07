@@ -49,7 +49,9 @@ export default {
     ...mapGetters('recipe', ['recipe'])
   },
   mounted() {
-    this.setupStepHeight()
+    this.$nextTick(() => {
+      this.setupStepHeight()
+    })
   },
   methods: {
 

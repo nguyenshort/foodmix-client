@@ -23,7 +23,9 @@ export default {
   },
   mounted() {
 
-    this.setupSidebar()
+    this.$nextTick(() => {
+      this.setupSidebar()
+    })
 
   },
 
