@@ -68,11 +68,6 @@ export default {
       },
       {
         rel: 'icon',
-        sizes: '32x32',
-        href: '/favicon/favicon-32.png'
-      },
-      {
-        rel: 'icon',
         sizes: '192x192',
         href: '/favicon/favicon-192.png'
       },
