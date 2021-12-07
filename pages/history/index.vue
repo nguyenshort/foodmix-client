@@ -134,6 +134,7 @@
 <script>
 export default {
   name: 'HistoryPage',
+  middleware: 'auth',
   async asyncData({ $axios }) {
     try {
 

@@ -62,6 +62,7 @@
 <script>
 export default {
   name: 'SettingPage',
+  middleware: 'auth',
   created() {
     if(this.$route.path === "/settings") {
       this.$router.replace('/settings/account')

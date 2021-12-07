@@ -122,6 +122,7 @@
 <script>
 export default {
   name: 'LibraryPage',
+  middleware: 'auth',
   async asyncData({ $axios }) {
     try {
 
