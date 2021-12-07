@@ -47,7 +47,7 @@ export default {
     { src: '~/plugins/lottie.js', ssr: false },
     { src: '~/plugins/vue-cropperjs.js', ssr: false },
     { src: '~/plugins/cdn.js', ssr: true },
-    { src: '~/plugins/vue-flip-toolkit.js', ssr: false }
+    // { src: '~/plugins/vue-flip-toolkit.js', ssr: false }
 
   ],
 
