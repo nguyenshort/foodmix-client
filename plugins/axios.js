@@ -22,10 +22,10 @@ export default function ({ $axios, redirect, $cookies, store }) {
     if(process.browser && errorCode === 2 && store.getters['pref/showNotify']) {
 
       if(typeof msg === 'string') {
-        window.$nuxt.$emit('pushNotify', { msg, success: false })
+        window.$nuxt.$emit('pushNotify', { msg, error: true })
       } else if (Array.isArray(msg)) {
         // lỗi form
-        window.$nuxt.$emit('pushNotify', { msg: msg[0].msg, success: false })
+        window.$nuxt.$emit('pushNotify', { msg: msg[0].msg, error: true })
       }
 
     }
@@ -38,7 +38,7 @@ export default function ({ $axios, redirect, $cookies, store }) {
     if(typeof data === 'object' && data !== null && data.code === 2 && data.msg) {
 
       if(process.browser) {
-        window.$nuxt.$emit('pushNotify', { msg: data.msg, success: true })
+        window.$nuxt.$emit('pushNotify', { msg: data.msg })
       }
 
     }

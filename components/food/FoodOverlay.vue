@@ -58,7 +58,7 @@
         <button class='food-trans-btn h-9 inline-flex items-center justify-center rounded-full w-9 ' @click='printWindow()'><fa icon="print" /></button>
         <button
           class='food-trans-btn h-9 inline-flex items-center justify-center rounded-full w-9 ml-3'
-          @click='$nuxt.$emit("pushNotify", "App sẽ ra mắt sớm")'
+          @click='$nuxt.$emit("pushNotify", { msg: "App sẽ ra mắt sớm" })'
         >
           <fa icon="mobile-alt" />
         </button>

@@ -6,8 +6,8 @@
       ref='notify'
       class='px-10 py-3 rounded-lg shadow-2xl text-sm md:text-lg text-white w-max opacity-0 capitalize'
       :class='{
-        "bg-red-500": !message.success,
-        "bg-indigo-600": message.success
+        "bg-red-500": message.error,
+        "bg-indigo-600": !message.error
       }'
     >
       <p>{{ message.msg }}</p>
@@ -52,8 +52,11 @@ export default {
   },
   methods: {
 
+    /**
+     * @param message { Object }
+     */
     showNotify(message) {
-      this.message = Object.assign({}, message, { id: Math.random() })
+      this.message = message
       this.$nextTick(()=> {
         this.animation()
       })

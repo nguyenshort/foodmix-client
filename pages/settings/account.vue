@@ -239,7 +239,7 @@ export default {
 
       const file = target.files[0]
       if (!file.type.includes('image/')) {
-        this.$nuxt.$emit('pushNotify', { msg: 'Hãy chọn ảnh', success: false })
+        this.$nuxt.$emit('pushNotify', { msg: 'Hãy chọn ảnh', error: true })
         return
       }
       if (typeof FileReader === 'function') {
@@ -258,7 +258,7 @@ export default {
         }
         reader.readAsDataURL(file)
       } else {
-        this.$nuxt.$emit('pushNotify', { msg: 'Sorry, FileReader API not supported', success: false })
+        this.$nuxt.$emit('pushNotify', { msg: 'Sorry, FileReader API not supported', error: true })
       }
 
     },
