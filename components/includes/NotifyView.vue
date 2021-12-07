@@ -31,9 +31,9 @@ export default {
           duration: 1200,
           complete: () => {
 
-            setTimeout(()=> {
-              this.message = {}
-            }, 2000)
+              setTimeout(()=> {
+                this.message = {}
+              }, 2000)
 
           }
         })
