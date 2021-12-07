@@ -23,9 +23,7 @@ export default {
   },
   mounted() {
 
-    this.$nextTick(() => {
-      this.setupSidebar()
-    })
+    this.setupSidebar()
 
   },
 
@@ -34,12 +32,14 @@ export default {
     setupSidebar() {
       if(window.innerWidth >= 1280) {
         this.overlayHeight = document.querySelector(this.anchor).offsetHeight
-        this.$anime({
-          targets: this.$el,
-          translateY: [0, -this.overlayHeight * 0.6],
-          opacity: [0, 1],
-          duration: 2000,
-          delay: 700
+        this.$nextTick(()=> {
+          this.$anime({
+            targets: this.$el,
+            translateY: [0, -this.overlayHeight * 0.6],
+            opacity: [0, 1],
+            duration: 2000,
+            delay: 700
+          })
         })
       } else {
         this.$el.classList.remove('opacity-0')
