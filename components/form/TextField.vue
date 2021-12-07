@@ -14,7 +14,7 @@
 
       <input
         :id='inputKID'
-        class='focus:outline-none block'
+        class='focus:outline-none block flex-1'
         :value='value'
         :placeholder='placeholder'
         :type='type'
