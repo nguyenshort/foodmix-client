@@ -113,7 +113,9 @@ export default {
     }
   },
   mounted() {
-    this.startAnimation()
+    this.$nextTick(()=> {
+      this.startAnimation()
+    })
   },
   methods: {
 
