@@ -23,8 +23,17 @@ export default {
   },
   mounted() {
 
-    this.setupSidebar()
+    this.$nuxt.$once('postOverlayReady', () => {
+      this.$nextTick(() => {
+        this.setupSidebar()
+      })
+    })
 
+  },
+
+  destroyed() {
+
+    this.$nuxt.$off('postOverlayReady')
   },
 
   methods: {

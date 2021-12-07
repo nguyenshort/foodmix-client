@@ -68,6 +68,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      this.$nuxt.$emit('postOverlayReady')
       this.startAnimation()
     })
   },
