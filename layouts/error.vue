@@ -8,7 +8,7 @@
           <p>Xin hãy thử lại hoặc bấm vào nút quay lại.</p>
         </div>
         <div class="mb-20 md:mb-0">
-          <button class="text-lg font-light outline-none focus:outline-none transform transition-all hover:scale-110 text-yellow-500 hover:text-yellow-600" @click='$router.back()'>
+          <button class="text-lg font-light outline-none focus:outline-none transform transition-all hover:scale-110 text-indigo-500 hover:text-yellow-600" @click='$router.back()'>
             <i class="mdi mdi-arrow-left mr-2"></i>
             Quay Lại
           </button>
