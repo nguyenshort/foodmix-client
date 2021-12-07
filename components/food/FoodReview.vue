@@ -46,7 +46,7 @@
     <div class='mt-5'>
       <transition-group name="review" tag="ul">
         <li v-for='(review, index) in reviews' :key='review._id' class='mb-5 flex' :review-index='index'>
-          <div class='w-16'>
+          <div class='w-16 flex-shrink-0'>
             <nuxt-link :to='{ name: "profile-reviews", params: { slug: review.user.slug } }'>
               <img class='w-11 h-11 object-cover rounded-full' :src='$CDN(review.user.avatar)' alt='' />
             </nuxt-link>
