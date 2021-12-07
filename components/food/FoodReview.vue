@@ -33,7 +33,7 @@
             <p class='text-sm mb-2'>Chia Sẻ Cảm Nghĩ Của Bạn</p>
             <button
               class="bg-indigo-500 duration-300 focus:outline-none focus:ring hover:bg-indigo-700 hover:shadow-none px-7 py-3 rounded-full shadow-lg text-sm text-white transition-all"
-              @click='$nuxt.$emit("reviewModal")'
+              @click='openReviewTool()'
             >
               <fa class='mr-1' icon='comment-dots'></fa>
               Viết Đánh Giá
@@ -59,7 +59,7 @@
               <fa v-for='index2 in 5' :key='index2' icon="star" class='text-yellow-500 text-xs mr-0.5'/>
             </div>
             <div>
-              <p class='text-gray-500'>{{ review.content }}</p>
+              <p class='text-gray-500 whitespace-pre-wrap'>{{ review.content }}</p>
             </div>
             <span class='italic text-gray-500 text-xs mt-3'> {{ $moment(review.createdAt).format('LL') }}</span>
           </div>
@@ -84,7 +84,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('recipe', ['recipe', 'reviews'])
+    ...mapGetters('recipe', ['recipe', 'reviews']),
+    ...mapGetters('pref', ['auth'])
   },
   methods: {
     ...mapActions('recipe', ['getReviews']),
@@ -94,6 +95,13 @@ export default {
         await this.getReviews({ order: 'createdAt', page: 0, limit: 5})
         this.page++
         this.isLoading = false
+      }
+    },
+    openReviewTool() {
+      if(!this.auth) {
+        this.$nuxt.$emit('loginModal')
+      } else {
+        this.$nuxt.$emit("reviewModal")
       }
     }
   }

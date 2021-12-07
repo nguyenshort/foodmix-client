@@ -56,7 +56,7 @@
       icon='pen'
       :is-ready='isReady'
       :delay='700'
-      :callback='() => $nuxt.$emit("reviewModal")'
+      :callback='() => openReviewTool()'
     ></lazy-floating-action-button>
 
   </div>
@@ -95,6 +95,14 @@ export default {
       await this.toggleBookmark()
       this.isLoading = false
 
+    },
+
+    openReviewTool() {
+      if(!this.auth) {
+        this.$nuxt.$emit('loginModal')
+      } else {
+        this.$nuxt.$emit("reviewModal")
+      }
     }
   }
 }

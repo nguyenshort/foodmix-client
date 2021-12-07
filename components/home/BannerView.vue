@@ -8,7 +8,7 @@
           <p class='md:text-5xl text-2xl font-semibold opacity-0 banner-item'>Choose from thousands of recipes</p>
           <p class='line-clamp-2 md:line-clamp-none opacity-0 banner-item'> Appropriately integrate technically sound value with scalable infomediarie negotiate sustainable strategic theme areas </p>
 
-          <p class='opacity-0 banner-item'>Sign Up <fa class='ml-2' icon="long-arrow-alt-right" /> </p>
+          <p class='opacity-0 banner-item'>Đăng Ký <fa class='ml-2' icon="long-arrow-alt-right" /> </p>
 
         </div>
 

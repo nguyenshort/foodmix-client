@@ -31,24 +31,23 @@
           <textarea v-model='content' placeholder="Nhận xét của bạn là điều rất tuyệt với các tác giả. Hãy nhận xét có tâm và lớn hơn 50 kỹ tự bạn nhé..." class='border-b-2 border-transparent duration-500 ease-in-out focus:border-indigo-600 border-gray-200 focus:outline-none h-52 p-4 transition w-full' />
         </div>
         <div class='text-right mt-4'>
-          <button
-            class="text-sm bg-indigo-500 text-white p-2 w-32 rounded-full hover:bg-indigo-700 focus:outline-none transition duration-300 ease-in-out bt"
-            :disabled='content.length < 50 || rating === 0'
-            :class='{
-              "opacity-75": content.length < 50 || rating === 0,
-              _loading: isLoading
-            }'
-            @click='addReview()'
-          >
-            Đăng Ngay
-          </button>
+
+          <lazy-rounded-button
+            title='Đăng Ngay'
+            :callback='addReview'
+            class='px-3'
+          />
+
+
         </div>
       </div>
+      <lazy-message-modal v-if='errorMessage' :message='errorMessage' :success='false' @done='errorMessage = ""' />
     </template>
   </base-modal>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import reviews from '~/mixins/reviews'
 
 export default {
@@ -58,7 +57,7 @@ export default {
     return {
       points: [],
       content: '',
-      isLoading: false
+      errorMessage: ''
     }
   },
   computed: {
@@ -70,9 +69,12 @@ export default {
     }
   },
   mounted() {
-    this.setupReview()
+    this.$nextTick(()=> {
+      this.setupReview()
+    })
   },
   methods: {
+    ...mapActions('pref', ['getMe', 'setShowNotify']),
     setupReview() {
       this.reviews.forEach((e, i) => {
         this.$nuxt.$set(this.points, i, 0)
@@ -94,11 +96,13 @@ export default {
     },
 
     async addReview() {
-      this.isLoading = true
+
+      if(!this.validateForm()) {
+        return
+      }
+
 
       await this.$store.dispatch('recipe/addReview', { rating: this.rating, content: this.content })
-
-      this.isLoading = false
 
       setTimeout(() => {
         this.$nuxt.$emit('reviewModal')
@@ -106,6 +110,18 @@ export default {
         this.content = ''
         document.querySelector("#recipe-review").scrollIntoView({behavior: "smooth"})
       })
+    },
+
+    validateForm() {
+      if(this.content.length < 50) {
+        this.errorMessage = 'Nội dung đánh giá phải lớn hơn 50 ký tự'
+        return false
+      }
+      if(!this.points.every((e) => e > 0)) {
+        this.errorMessage = 'Bạn phải chấm tất cả các điểm'
+        return false
+      }
+      return true
     }
   }
 }

@@ -13,7 +13,7 @@
         </div>
         <div class="p-5 w-48 ">
           <div class="text-xs uppercase text-gray-500 font-medium">User</div>
-          <a class="my-3 block" href="/#">Sign in <span class="text-teal-600 text-xs p-1"></span></a>
+          <a class="my-3 block" href="/#">Đăng Ký <span class="text-teal-600 text-xs p-1"></span></a>
           <a class="my-3 block" href="/#">New Account <span class="text-teal-600 text-xs p-1"></span></a>
           <a class="my-3 block" href="/#">Demo <span class="text-teal-600 text-xs p-1">New</span></a>
           <a class="my-3 block" href="/#">Career <span class="text-teal-600 text-xs p-1">We're hiring</span></a>

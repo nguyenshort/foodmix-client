@@ -3,14 +3,14 @@ export const state = () => ({
    * @property { { name: String, avatar: String, email: String } } user
    */
   user: {},
-  showHeader: true
+  showNotify: true
 })
 
 // getters
 export const getters = {
   user: (state) => state.user,
   auth: (state) => Object.keys(state.user).length > 0,
-  showHeader: (state) => state.showHeader
+  showNotify: (state) => state.showNotify
 }
 
 // mutations
@@ -19,8 +19,8 @@ export const mutations = {
     state.user = data
   },
 
-  SET_SHOW_HEADER(state, data) {
-    state.showHeader = data
+  SET_SHOW_NOTIFY(state, data) {
+    state.showNotify = data
   }
 }
 
@@ -41,7 +41,7 @@ export const actions = {
     commit('SET_USER', payload)
   },
 
-  setShowHeader({ commit }, payload) {
-    commit('SET_SHOW_HEADER', payload)
+  setShowNotify({ commit }, payload) {
+    commit('SET_SHOW_NOTIFY', payload)
   }
 }

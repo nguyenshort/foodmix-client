@@ -106,9 +106,10 @@ export default {
         'faPen',
         'faExternalLinkAlt',
         'faHeart',
-        'faHome'
+        // 'faHome',
+        'faLock'
       ],
-      regular: ['faStar']
+      regular: ['faStar', 'faEnvelope', 'faUser']
     }
   },
 

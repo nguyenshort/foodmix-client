@@ -1,12 +1,13 @@
 <template>
   <lazy-base-modal
     ref='signInModal'
-    event='loginModal'
-    title='Đăng Nhập'
+    event='signInModal'
+    title='Đăng Ký'
     :max-width='500'
     @ready='toggleNotify(false); showAnimation = true'
     @dispose='toggleNotify(true); showAnimation = false'
   >
+
     <div class='max-w-xs mx-auto'>
 
         <div style='width: 200px; height: 150px' class='mx-auto'>
@@ -16,7 +17,7 @@
               width='200px'
               height='150px'
               loop
-              path="https://assets10.lottiefiles.com/private_files/lf30_3dLrkA.json"
+              path="/json/pizza.json"
             />
           </lazy-animate-switcher>
         </div>
@@ -27,7 +28,14 @@
         </div>
 
         <form ref='form' @submit.prevent='signUp()'>
-
+          <lazy-text-field
+            ref='nameField'
+            v-model='name'
+            class='my-4'
+            :suffix-icon='["far", "user"]'
+            placeholder='Tên Người Dùng'
+            :validate='nameValidate'
+          />
           <lazy-text-field
             ref='emailField'
             v-model='email'
@@ -44,22 +52,18 @@
             suffix-icon='lock'
             placeholder='Password'
             :validate='passwordValidate'
-          >
-            <template #suffix>
-              <a class='block text-xs text-indigo-500 ml-3 cursor-pointer' @click.prevent='$nuxt.$emit("pushNotify", { msg: "Tính năng sắp ra mắt" })'>Quên Mật Khẩu?</a>
-            </template>
-          </lazy-text-field>
+          />
 
           <div class='text-xs text-center my-1'>
-            <p>Chưa Có Tài Khoản?
-              <a class='text-indigo-500 cursor-pointer' @click.prevent='openSignUp()'>Đăng Ký Ngay</a></p>
+            <p>Đã Có Tài Khoản?
+              <a class='text-indigo-500 cursor-pointer' @click.prevent='openSignUp()'>Đăng Nhập Ngay</a></p>
           </div>
 
           <lazy-rounded-button
             ref='submitButton'
             type='submit'
             class='w-full mt-3'
-            title='Đăng Nhập'
+            title='Đăng Ký'
           />
 
         </form>
@@ -84,9 +88,10 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'LoginModal',
+  name: 'SignUpModal',
   data() {
     return {
+      name: '',
       email: '',
       password: '',
       errorMessage: '',
@@ -103,11 +108,11 @@ export default {
         return
       }
       try {
-        const { data } = await this.$axios.$post('/users/sign-in',{ email: this.email, password: this.password })
-        this.$nuxt.$emit('loginModal')
+        const { data } = await this.$axios.$post('/users/sign-up',{ name: this.name, email: this.email, password: this.password })
+        this.$nuxt.$emit('signInModal')
         await this.$cookies.set('_token', data)
 
-        this.$nuxt.$emit('pusNotify', { msg: 'Đăng Nhập Thành Công' })
+        this.$nuxt.$emit('pusNotify', { msg: 'Đăng Ký Thành Công' })
 
         setTimeout(()=> {
           location.reload()
@@ -116,15 +121,16 @@ export default {
         // get user
 
       } catch (e) {
-        const { response: { data: { msg } } } = e
-        this.errorMessage = ''
-        this.errorMessage = typeof msg === 'string' ? msg : msg[0].msg
+         const { response: { data: { msg } } } = e
+         this.errorMessage = ''
+         this.errorMessage = typeof msg === 'string' ? msg : msg[0].msg
       }
     },
 
     validate() {
       const errors = [
         this.$refs.emailField.outFocus(),
+        this.$refs.nameField.outFocus(),
         this.$refs.passField.outFocus()
       ]
       return errors.every((value) => !value.length)
@@ -149,7 +155,7 @@ export default {
     openSignUp() {
       this.$refs.signInModal.dispose()
       setTimeout(()=> {
-        this.$nuxt.$emit('signInModal')
+        this.$nuxt.$emit('loginModal')
       }, 300)
     }
 

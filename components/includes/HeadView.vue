@@ -1,6 +1,8 @@
 <template>
 
   <div>
+
+    <!-- PC Header -->
     <header
       class='text-gray-700 body-font shadow w-full h-16 md:h-20 bg-white z-50 hidden xl:block'
     >
@@ -29,11 +31,12 @@
           <div>
             <lazy-user-menu v-if='auth' />
             <template v-else>
-              <a class='mr-7 cursor-pointer hover:text-indigo-500 text-sm' @click='$nuxt.$emit("loginModal")'> Sign In </a>
+              <a class='mr-7 cursor-pointer hover:text-indigo-500 text-sm' @click='$nuxt.$emit("loginModal")'> Đăng Nhập </a>
               <button
                 class='bt text-sm bg-indigo-500 text-white p-2 w-32 rounded-full hover:bg-indigo-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300'
+                @click='$nuxt.$emit("signInModal")'
               >
-                Sign Up
+                Đăng Ký
               </button>
             </template>
           </div>
@@ -80,7 +83,7 @@
                   class='bt text-sm bg-indigo-500 text-white p-2 w-32 rounded-full hover:bg-indigo-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300'
                   @click='$nuxt.$emit("loginModal")'
                 >
-                  Sign Up
+                  Đăng Nhập
                 </button>
             </div>
           </lazy-animate-switcher>

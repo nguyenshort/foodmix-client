@@ -1,17 +1,20 @@
 <template>
-  <transition-group id="app-noti" tag="div" name="notify">
+  <div class='-translate-x-1/2 -translate-y-1/2 fixed left-1/2 top-1/2 transform z-50'>
+
     <div
-      v-for="notify in messages"
-      :key="notify.id"
-      class='-translate-x-1/2 w-max -translate-y-1/2 visible opacity-100 capitalize duration-300 fixed left-1/2 px-10 py-3 rounded-lg shadow-2xl text-sm md:text-lg text-white top-1/2 transform transition z-50'
+      v-if='canShow'
+      ref='notify'
+      class='px-10 py-3 rounded-lg shadow-2xl text-sm md:text-lg text-white w-max opacity-0 capitalize'
       :class='{
-          "bg-red-500": !notify.success,
-          "bg-indigo-600": notify.success
+        "bg-red-500": !message.success,
+        "bg-indigo-600": message.success
       }'
     >
-      <p>{{ notify.msg }}</p>
+      <p>{{ message.msg }}</p>
+
     </div>
-  </transition-group>
+
+  </div>
 </template>
 
 <script>
@@ -19,7 +22,27 @@ export default {
   name: 'NotifyView',
   data() {
     return {
-      messages: []
+      message: {},
+      animation: () => {
+        this.$anime({
+          targets: this.$refs.notify,
+          translateY: [-50, 0],
+          opacity: [0, 1],
+          duration: 1200,
+          complete: () => {
+
+            setTimeout(()=> {
+              this.message = {}
+            }, 2000)
+
+          }
+        })
+      }
+    }
+  },
+  computed: {
+    canShow() {
+      return Object.keys(this.message).length
     }
   },
   mounted() {
@@ -30,9 +53,10 @@ export default {
   methods: {
 
     showNotify(message) {
-      this.messages.push(Object.assign({}, message, { id: Math.random() }))
-      setTimeout(()=> { this.messages.shift() }, 3000)
-
+      this.message = Object.assign({}, message, { id: Math.random() })
+      this.$nextTick(()=> {
+        this.animation()
+      })
     }
 
   }

@@ -11,6 +11,11 @@
 
 <script>
 export default {
-  name: 'FanpageSideBar'
+  name: 'FanpageSideBar',
+  data() {
+    return {
+      show: false
+    }
+  }
 }
 </script>

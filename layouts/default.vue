@@ -19,6 +19,7 @@
     <footer-view />
 
     <lazy-login-modal />
+    <lazy-sign-up-modal />
 
     <lazy-notify-view />
 
@@ -36,33 +37,6 @@ export default {
       if(this.$route.query.action === 'loginModal') {
         setTimeout(() => { this.$nuxt.$emit('loginModal') }, 1000)
       }
-    }
-  },
-  methods: {
-    beforeEnter (el) {
-      el.style.opacity = 0
-    },
-    enter (el, done) {
-      this.$anime({
-        targets: el,
-        translateY: [-50, 0],
-        opacity: [0, 1],
-        duration: 1200,
-        complete: (anim) => {
-          done()
-        }
-      })
-    },
-    leave (el, done) {
-      this.$anime({
-        targets: el,
-        scale: [1, 0.8],
-        opacity: [1, 0],
-        duration: 1200,
-        complete: (anim) => {
-          done()
-        }
-      })
     }
   }
 }

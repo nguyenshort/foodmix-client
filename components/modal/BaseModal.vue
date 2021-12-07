@@ -1,34 +1,36 @@
 <template>
-  <div
-    :id='event'
-    class='fixed flex h-full items-center justify-center top-0 w-full z-50 transition duration-500 ease-in-out left-0'
-    :class='{
+  <client-only>
+    <div
+      :id='event'
+      class='fixed flex h-full items-center justify-center top-0 w-full z-50 transition duration-500 ease-in-out left-0'
+      :class='{
       "invisible opacity-0": !showModal,
       "visible opacity-100": showModal
     }'
-  >
-    <a class='absolute top-0 left-0 w-full h-full close-overlay cursor-pointer' title='Close' @click='dispose()'></a>
-    <div
-      :id='`${event}-body`'
-      ref='modalBody'
-      class='border-indigo-600 border-t-4 modal-content relative py-7 w-full bg-white mx-3 sm:mx-0 opacity-0'
-      :style='
+    >
+      <a class='absolute top-0 left-0 w-full h-full close-overlay cursor-pointer' title='Close' @click='dispose()'></a>
+      <div
+        :id='`${event}-body`'
+        ref='modalBody'
+        class='border-indigo-600 border-t-4 modal-content relative py-7 w-full bg-white mx-3 sm:mx-0 opacity-0 overflow-hidden'
+        :style='
         {
           maxWidth: maxWidth + "px"
         }
       '
-    >
-      <a class='-translate-x-7 z-10 absolute close-button right-0 text-xl top-0 transform translate-y-5 cursor-pointer' @click='dispose()'>
-        <fa icon='times'></fa>
-      </a>
-      <div class='px-7'>
-        <h4 v-if='title' class='font-semibold text-gray-600 text-xl'>{{ title }}</h4>
+      >
+        <a class='-translate-x-7 z-10 absolute close-button right-0 text-xl top-0 transform translate-y-5 cursor-pointer' @click='dispose()'>
+          <fa icon='times'></fa>
+        </a>
+        <div class='px-7'>
+          <h4 v-if='title' class='font-semibold text-gray-600 text-xl lg:text-2xl'>{{ title }}</h4>
 
-        <slot :show='showModal'></slot>
+          <slot :show='showModal'></slot>
 
+        </div>
       </div>
     </div>
-  </div>
+  </client-only>
 </template>
 
 <script>
@@ -50,7 +52,6 @@ export default {
   },
   data() {
     return {
-      data: {},
       showModal: false
     }
   },
@@ -66,30 +67,32 @@ export default {
 
     dispose() {
       this.showModal = false
-      this.data = {}
       this.$nuxt.$emit(`${this.event}Dispose`)
+      this.$emit('dispose')
     },
 
-    init(data) {
-      this.data = data
+    async initModal() {
       this.showModal = true
-      this.$anime({
+      await this.$anime({
         targets: this.$refs.modalBody,
         scale: [0.9, 1],
         opacity: [0, 1],
         duration: 1500,
         complete: (anime) => {
           this.$nuxt.$emit(`${this.event}Init`)
+          this.$emit('ready')
         }
       })
     },
 
     setupModal() {
 
-      this.$nuxt.$on(this.event, (data) => {
+      console.log(`${this.event} Init`)
+
+      this.$nuxt.$on(this.event, () => {
 
         if (!this.showModal) {
-          this.init(data)
+          this.initModal()
         } else {
           this.dispose()
         }

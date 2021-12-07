@@ -1,11 +1,8 @@
-export default function ({ $axios, redirect, $cookies, app }) {
-
-
+export default function ({ $axios, redirect, $cookies, store }) {
 
   $axios.setToken($cookies.get('_token') || '', 'Bearer')
 
   $axios.onRequest(config => {
-    // config.withCredentials = true
     console.log('Making request to ' + config.url)
   })
 
@@ -17,14 +14,18 @@ export default function ({ $axios, redirect, $cookies, app }) {
 
     // Unauthorized yêu cầu đăng nhập
     if (code === 401) {
-      redirect('/?action=loginModal')
+      redirect('/')
     }
 
-    const data = error.response.data
-    if(typeof data === 'object' && data !== null && data.code === 2 && data.msg) {
+    const { code: errorCode, msg } = error.response.data
 
-      if(process.browser) {
-        window.$nuxt.$emit('pushNotify', { msg: data.msg, success: false })
+    if(process.browser && errorCode === 2 && store.getters['pref/showNotify']) {
+
+      if(typeof msg === 'string') {
+        window.$nuxt.$emit('pushNotify', { msg, success: false })
+      } else if (Array.isArray(msg)) {
+        // lỗi form
+        window.$nuxt.$emit('pushNotify', { msg: msg[0].msg, success: false })
       }
 
     }

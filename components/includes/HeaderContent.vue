@@ -23,11 +23,11 @@
         </div>
       </template>
       <template v-else>
-        <a class='mr-7 cursor-pointer hover:text-indigo-500 text-sm' @click='$nuxt.$emit("loginModal")'> Sign In </a>
+        <a class='mr-7 cursor-pointer hover:text-indigo-500 text-sm' @click='$nuxt.$emit("loginModal")'> Đăng Nhập </a>
         <button
           class='bt text-sm bg-indigo-500 text-white p-2 w-32 rounded-full hover:bg-indigo-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300'
         >
-          Sign Up
+          Đăng Ký
         </button>
       </template>
     </div>

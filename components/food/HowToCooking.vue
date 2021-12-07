@@ -4,10 +4,16 @@
     <div class='mt-8'>
       <div class='step-overlay scrollbar-track-gray-200 scrollbar-thumb-indigo-500 scrollbar-thin'>
         <div ref='steps' class='xl:pl-24 pl-20 relative'>
-          <div class='-translate-y-1/2 absolute bg-indigo-500 left-10 xl:left-12 step-overlay-line t-1/2 top-1/2 transform w-0.5' :style='{ height: height + "px" }'></div>
+          <div class='-translate-y-1/2 absolute left-10 xl:left-12 step-overlay-line t-1/2 top-1/2 transform w-0.5' :style='{ height: height + "px" }'>
+            <div class='bg-indigo-500 w-full h-full'></div>
+          </div>
           <div v-for='(step, index) in recipe.stepper' :key='index' class='border-b mr-5 py-5 relative'>
           <span class='-left-10 xl:-left-12 -translate-x-1/2 -translate-y-1/2 absolute step-icon text-white top-1/2 transform shadow-lg'>
-            <span class='step-icon-content w-10 h-10 rounded-full flex items-center justify-center bg-indigo-500 relative'>{{ index + 1 }}</span>
+            <span class='step-icon-content w-10 h-10 rounded-full flex items-center justify-center bg-indigo-500 relative'>
+              <span>
+               {{ index + 1 }}
+              </span>
+            </span>
           </span>
             <p class=''>{{ step.content }}</p>
             <div v-if='!step.image' class='mt-3'>
