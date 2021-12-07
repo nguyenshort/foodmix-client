@@ -1,9 +1,9 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'foodmix-client',
+    title: 'FoodMix - Thích Thì Nấu',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'vi'
     },
     meta: [
       { charset: 'utf-8' },
