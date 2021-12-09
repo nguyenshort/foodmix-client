@@ -215,5 +215,9 @@ export default {
     port: process.env.PORT, // default: 3000
     host: 'localhost', // default: localhost,
     timing: false
+  },
+
+  globals: {
+    id: '__foodmix', // replacing __nuxt
   }
 }
