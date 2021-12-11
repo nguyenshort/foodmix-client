@@ -11,7 +11,7 @@
     <img
       src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
       class='rounded-lg lazyload w-full h-full'
-      :data-src='recipe.avatar'
+      :data-src='$CDN(recipe.avatar)'
       alt=''
     />
     <slot></slot>

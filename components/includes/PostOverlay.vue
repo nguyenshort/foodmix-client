@@ -4,7 +4,7 @@
       <img
         ref='recipeAvatar'
         class='blur brightness-90 filter h-full lazyload object-cover scale-110 transform w-full opacity-0'
-        :data-src='background'
+        :data-src='$CDN(background)'
         alt=''
         src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
       />

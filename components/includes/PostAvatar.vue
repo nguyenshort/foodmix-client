@@ -11,7 +11,7 @@
       </div>
       <img
         class='cursor-pointer duration-1000 food-avatar h-full lazyload object-cover transform transition w-full'
-        :data-src='avatar'
+        :data-src='$CDN(avatar)'
         alt=''
         src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
         :class='{

@@ -2,8 +2,10 @@ export default (ctx, inject) => {
 
   /**
    * @param url { String }
+   * { Vue.prototype.$CDN }
    */
-  inject("CDN", (url) => {
+  inject("CDN",
+    (url) => {
     /**
      * @global
      */

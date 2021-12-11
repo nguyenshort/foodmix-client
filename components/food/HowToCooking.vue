@@ -16,16 +16,8 @@
             </span>
           </span>
             <p class=''>{{ step.content }}</p>
-            <div v-if='!step.image' class='mt-3'>
+            <div v-if='step.image' class='mt-3'>
               <img class='h-28 object-cover w-44 rounded-lg' :src='step.image'  alt=''/>
-            </div>
-            <div class='mt-3'>
-              <img
-                class='h-28 object-cover w-44 rounded-lg lazyload'
-                src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
-                data-src='https://images.unsplash.com/photo-1490645935967-10de6ba17061?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=160&ixid=MXwxfDB8MXxhbGx8fHx8fHx8fA&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=300'
-                alt=''
-              />
             </div>
           </div>
         </div>
