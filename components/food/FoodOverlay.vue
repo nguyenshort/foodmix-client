@@ -26,13 +26,13 @@
       <div class='xl:mr-12 w-1/2 sm:w-1/4 mb-4 lg:w-1/2 lg:text-center xl:text-left xl:w-auto'>
         <div>Thời Gian Chuẩn Bị</div>
         <div class='font-semibold mt-1'>
-          {{ $nuxt.$moment(recipe.preparation).format("mm") }} Phút
+          {{ recipe.preparation }} Phút
         </div>
       </div>
       <div class='xl:mr-12 w-1/2 sm:w-1/4 mb-4 lg:w-1/2 lg:text-center xl:text-left xl:w-auto'>
         <div>Thời Gian Nấu</div>
         <div class='font-semibold mt-1'>
-          {{ $nuxt.$moment(recipe.time).format("mm") }} Phút
+          {{ recipe.time }} Phút
         </div>
       </div>
 
