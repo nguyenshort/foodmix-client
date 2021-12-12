@@ -17,7 +17,7 @@
     @ready='isReadyHandle(true)'
   >
     <div class='flex xl:flex-nowrap flex-wrap items-center text-sm lg:ml-5'>
-      <div class='xl:mr-12 w-1/2 sm:w-1/4 mb-4 lg:w-1/2 lg:text-center xl:text-left xl:w-auto'>
+      <div v-if='recipe.category' class='xl:mr-12 w-1/2 sm:w-1/4 mb-4 lg:w-1/2 lg:text-center xl:text-left xl:w-auto'>
         <div>Phân Loại</div>
         <nuxt-link :to='{ name: "category", params: { slug: recipe.category.slug } }' class='font-semibold mt-1 block'>
           {{ recipe.category.name }}
