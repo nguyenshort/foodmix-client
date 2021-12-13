@@ -17,7 +17,7 @@
           </span>
             <p class=''>{{ step.content }}</p>
             <div v-if='step.image' class='mt-3'>
-              <img class='h-28 object-cover w-44 rounded-lg' :src='step.image'  alt=''/>
+              <img src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' class='h-28 object-cover w-44 rounded-lg lazyload' :data-src='$CDN(step.image)'  alt=''/>
             </div>
           </div>
         </div>
