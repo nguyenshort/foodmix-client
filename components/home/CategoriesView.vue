@@ -7,7 +7,7 @@
           <swiper-slide v-for='(category, index) in categories' :key='index'>
             <nuxt-link :to='{ name: "category", params: { slug: category.slug } }' class='text-sm text-center cursor-pointer flex flex-col items-center'>
               <div class='w-20 h-20 border-8 border-white rounded-full overflow-hidden shadow opacity-0 categories-view-item'>
-                <img src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' :data-src='category.avatar' alt='' class='object-cover lazyload w-full h-full' />
+                <img src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' :data-src='$CDN(category.avatar)' alt='' class='object-cover lazyload w-full h-full' />
               </div>
               <p class='mt-2 opacity-0 categories-view-name'>{{ category.name }}</p>
             </nuxt-link>
