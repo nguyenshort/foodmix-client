@@ -19,7 +19,7 @@
       </nuxt-link>
       <template v-if='auth'>
         <div class='w-10 h-10 cursor-pointer'>
-          <img :src='user.avatar' class='h-full object-cover w-full' alt='' />
+          <img :src='$CDN(user.avatar)' class='h-full object-cover w-full' alt='' />
         </div>
       </template>
       <template v-else>

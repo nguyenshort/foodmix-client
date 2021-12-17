@@ -4,7 +4,7 @@
     <div class='mt-4'>
       <div v-for='index in 5' :key='index' class='mb-4 flex items-center top-author relative' :ranking='index'>
         <div class='avatar-author relative'>
-          <img class='w-16 h-16 rounded-full border-2 border-white shadow' :src='user.avatar'  alt=''/>
+          <img class='w-16 h-16 rounded-full border-2 border-white shadow' :src='$CDN(user.avatar)'  alt=''/>
         </div>
         <div class='ml-2'>
           <p>{{ user.name }}</p>

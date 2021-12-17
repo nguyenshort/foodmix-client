@@ -28,7 +28,7 @@
             >
               <div class='flex flex-wrap'>
                 <div class='sm:w-1/3'>
-                  <img class='h-auto w-full rounded' :src='review.recipe.avatar' alt='' />
+                  <img class='h-auto w-full rounded' :src='$CDN(review.recipe.avatar)' alt='' />
                 </div>
                 <div class='sm:w-2/3 mt-3 sm:mt-0 sm:pl-5 flex flex-col justify-evenly'>
                   <h5 class='text-lg font-semibold line-clamp-1'>{{ review.recipe.name }}</h5>

@@ -28,7 +28,7 @@
             >
               <img
                 class='h-auto max-w-xs lg:mx-0 block mx-auto lazyload object-cover w-full border-8 rounded-xl shadow-2xl'
-                :data-src='background'
+                :data-src='$CDN(background)'
                 alt=''
                 src='data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
               />
