@@ -103,11 +103,8 @@ export default {
         return
       }
       try {
-        const { data } = await this.$axios.$post('/users/sign-in',{ email: this.email, password: this.password })
-        this.$nuxt.$emit('loginModal')
-        await this.$cookies.set('_token', data)
 
-        this.$nuxt.$emit('pusNotify', { msg: 'Đăng Nhập Thành Công' })
+        const { data: { login } } = await this.$apollo.mulation
 
         setTimeout(()=> {
           location.reload()
